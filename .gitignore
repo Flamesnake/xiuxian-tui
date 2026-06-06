@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+data/saves/*.json
+*.egg-info/
+.DS_Store

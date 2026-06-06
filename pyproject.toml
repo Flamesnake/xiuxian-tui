@@ -1,0 +1,11 @@
+[project]
+name = "tuipygame"
+version = "0.1.0"
+description = "终端修仙模拟器 — 仪表盘修仙 TUI 游戏"
+requires-python = ">=3.12"
+dependencies = [
+    "textual>=8.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["game*", "ui*"]
