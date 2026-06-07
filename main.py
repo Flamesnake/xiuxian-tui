@@ -3,8 +3,8 @@
 在仪表盘式的终端界面中体验修仙世界。
 """
 
-import sys
 import io
+import sys
 
 # Windows 下强制 UTF-8 编码，确保 emoji 正常显示
 if sys.platform == "win32":

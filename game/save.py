@@ -88,7 +88,7 @@ def load_game(path: str | None = None) -> PlayerState | None:
         return None
 
     try:
-        with open(p, "r", encoding="utf-8") as f:
+        with open(p, encoding="utf-8") as f:
             data = json.load(f)
         # 移除存档元数据
         data.pop("save_version", None)

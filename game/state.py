@@ -5,39 +5,10 @@
 
 from __future__ import annotations
 
-import dataclasses
 from dataclasses import dataclass, field
-from typing import Any
 
-from game.config import REALMS, PLAYER_INIT
-
-@dataclass
-class Buff:
-    """状态效果"""
-    name: str
-    remaining: int       # 剩余行动次数
-    effect: dict         # {"hp_regen": 2, "cultivation_bonus": 0.1}
-
-    def to_dict(self) -> dict:
-        return dataclasses.asdict(self)
-
-    @classmethod
-    def from_dict(cls, data: dict) -> Buff:
-        return cls(**data)
-
-
-@dataclass
-class ChronicleEntry:
-    """修仙年表中的一条记录"""
-    year: float          # 游戏内年龄（发生时）
-    text: str
-
-    def to_dict(self) -> dict:
-        return dataclasses.asdict(self)
-
-    @classmethod
-    def from_dict(cls, data: dict) -> ChronicleEntry:
-        return cls(**data)
+from game.config import PLAYER_INIT, REALMS
+from game.types import Buff, ChronicleEntry
 
 
 @dataclass

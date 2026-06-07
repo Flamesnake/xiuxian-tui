@@ -38,56 +38,52 @@ class CultivationApp(App):
         margin: 0 15 1 15;
     }
 
-    /* 主游戏网格 */
-    #main-grid {
+    /* ── 主游戏（命令输入模式） ── */
+
+    /* 顶行：左状态 + 右主面板 */
+    #top-row {
         layout: grid;
-        grid-size: 3 1;
-        grid-columns: 30 1fr 22;
+        grid-size: 2 1;
+        grid-columns: 30 1fr;
+        height: 1fr;            /* 占满日志和输入框之外的空间 */
         margin: 0 1;
-        height: 1fr;
     }
 
-    /* 左面板：状态 */
-    #left-panel {
+    #panel-status {
         border: solid green;
         padding: 0 1;
         height: 100%;
     }
-    #left-panel > #status {
-        height: auto;
+
+    #panel-main {
+        border: solid blue;
+        padding: 0 1;
+        height: 100%;
     }
 
-    /* 中面板：日志 */
-    #center-panel {
+    /* 历史日志 */
+    #log {
         border: solid cyan;
         padding: 0 1;
-        height: 100%;
-    }
-    #center-panel > #log {
-        height: 100%;
-    }
-
-    /* 右面板：操作菜单 */
-    #right-panel {
-        border: solid yellow;
-        padding: 0 1;
-        height: 100%;
-    }
-    #right-panel > #actions {
         height: auto;
-    }
-    #right-panel Button {
-        width: 100%;
-        margin: 0 0 1 0;
+        max-height: 10;
+        margin: 0 1;
     }
 
-    /* 底部消息 */
-    #message {
+    /* 命令输入框 */
+    #cmd-input {
+        height: 3;
+        margin: 0 1;
+    }
+
+    /* 底部状态栏 */
+    #status-bar {
         background: #1a1a2e;
         color: #ccc;
         padding: 0 2;
-        height: 3;
+        height: 1;
         dock: bottom;
+        content-align: left middle;
     }
 
     /* 游戏结束 */

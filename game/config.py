@@ -4,20 +4,13 @@
 """
 
 from __future__ import annotations
+
 import random
-from typing import NamedTuple
+from typing import Any
+
+from game.types import EventTemplate, Realm, TimedEvent
 
 # ─── 境界体系 ───────────────────────────────────────────
-
-class Realm(NamedTuple):
-    """一个大境界的定义"""
-    name: str          # e.g. "炼气期"
-    icon: str          # e.g. "🟢"
-    max_layer: int     # 该境界包含多少小层
-    base_lifespan_bonus: int   # 突破到该境界时增加寿元
-    layer_lifespan_bonus: int  # 每突破一小层增加寿元
-    breakthrough_base: float   # 小突破基础概率 (0~1)
-    tribulation: bool          # 是否触发天劫（大境界突破）
 
 REALMS: list[Realm] = [
     Realm("炼气期", "🟢", 9, 0, 1, 0.80, False),
@@ -26,7 +19,7 @@ REALMS: list[Realm] = [
 ]
 
 # 大境界突破天劫配置
-TRIBULATION_CONFIG = {
+TRIBULATION_CONFIG: dict[str, Any] = {
     "strikes": 3,           # 几道雷劫
     "options": {            # 应对选项: (消耗资源, 消耗量, 成功率权重)
         "运功硬抗": {"cost_type": "hp", "cost": 15, "weight": 1.0},
@@ -48,11 +41,11 @@ CULTIVATION_EXPONENT = 1.5
 def cultivation_needed(realm_idx: int, layer: int) -> int:
     """计算突破到下一层需要的修为值"""
     base = REALM_CULTIVATION_BASE[realm_idx]
-    return int(base * (layer ** CULTIVATION_EXPONENT)) or base
+    return int(base * (layer ** CULTIVATION_EXPONENT))
 
 # ─── 初始属性 ──────────────────────────────────────────
 
-PLAYER_INIT = {
+PLAYER_INIT: dict[str, Any] = {
     "name": "无名散修",
     "realm_idx": 0,       # 初始炼气期
     "layer": 1,           # 炼气一层
@@ -69,7 +62,7 @@ PLAYER_INIT = {
 
 # ─── 行动时间消耗（年） ──────────────────────────────────
 
-ACTION_TIME = {
+ACTION_TIME: dict[str, float] = {
     "cultivate": 0.10,   # 修炼 ~36.5天
     "meditate": 0.05,    # 冥想 ~18天
     "explore": 0.05,     # 探索
@@ -81,7 +74,7 @@ ACTION_TIME = {
 
 # ─── 丹药效果 ──────────────────────────────────────────
 
-PILLS = {
+PILLS: dict[str, Any] = {
     "聚气丹": {
         "cost": 5,
         "effects": {"cultivation": 15, "qi": 10},
@@ -105,13 +98,6 @@ PILLS = {
 }
 
 # ─── 随机事件配置 ──────────────────────────────────────
-
-class EventTemplate(NamedTuple):
-    title: str
-    description: str
-    color: str          # Rich markup color
-    effects: dict       # 属性变更
-    tags: list[str]     # 标签
 
 # 炼气期事件池
 EVENTS_REALM_0 = [
@@ -210,7 +196,7 @@ EVENTS_REALM_2 = [
 ]
 
 # 按境界索引的事件池
-EVENT_POOLS = [EVENTS_REALM_0, EVENTS_REALM_1, EVENTS_REALM_2]
+EVENT_POOLS: list[list[EventTemplate]] = [EVENTS_REALM_0, EVENTS_REALM_1, EVENTS_REALM_2]
 
 # ─── 事件因果链 ──────────────────────────────────────
 
@@ -224,15 +210,7 @@ EVENT_CHAINS: dict[str, list[EventTemplate]] = {
     ],
 }
 
-# 限时事件：持续 N 次行动后消失
-class TimedEvent(NamedTuple):
-    key: str
-    name: str
-    duration: int        # 剩余行动次数
-    description: str
-    effects: dict
-
-TIMED_EVENTS_CONFIG = {
+TIMED_EVENTS_CONFIG: dict[str, TimedEvent] = {
     "secret_realm": TimedEvent(
         key="secret_realm",
         name="秘境开启",
